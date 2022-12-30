@@ -117,8 +117,8 @@ export default class DisplayBoard extends React.Component<DisplayBoardProps> {
             }).sort(function (a: Departure, b: Departure) {
                 if (a.stopName < b.stopName) return -1;
                 if (a.stopName > b.stopName) return 1;
-                if (a.line < b.line) return -1;
-                if (a.line > b.line) return 1;
+                // if (a.line < b.line) return -1;
+                // if (a.line > b.line) return 1;
                 if (a.departureTime < b.departureTime) return -1;
                 if (a.departureTime > b.departureTime) return 1;
                 return 0;
