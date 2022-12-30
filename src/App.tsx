@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
+import { useState } from 'react';
+import DisplayBoard from './DisplayBoard'
+import React from 'react';
+
+
+class LatLong  {
+  latitude: number;
+  longitude: number;
+
+  constructor(latitude: number, longitude: number) {
+    this.latitude = latitude;
+    this.longitude = longitude;
+  }
+}
 
 function App() {
+  let location = getLocation();
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <DisplayBoard />
+      
     </div>
   );
 }
 
+function getLocation() {
+  return new LatLong(52.5066846400927, 13.44972267216406)
+}
+
 export default App;
+
