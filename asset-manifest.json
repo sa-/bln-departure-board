@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/bln-departure-board/static/css/main.dae96908.css",
+    "main.js": "/bln-departure-board/static/js/main.723949c7.js",
+    "static/js/787.7c67f256.chunk.js": "/bln-departure-board/static/js/787.7c67f256.chunk.js",
+    "index.html": "/bln-departure-board/index.html",
+    "main.dae96908.css.map": "/bln-departure-board/static/css/main.dae96908.css.map",
+    "main.723949c7.js.map": "/bln-departure-board/static/js/main.723949c7.js.map",
+    "787.7c67f256.chunk.js.map": "/bln-departure-board/static/js/787.7c67f256.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.dae96908.css",
+    "static/js/main.723949c7.js"
+  ]
+}
