@@ -35,6 +35,92 @@ async function getDeparturesForStop(stopId: string) {
     return response.data
 }
 
+function getLineDeco(mode: string, line: string) {
+    if (mode === "bus") {
+        return <div className="modeCol"><img className="bus-icon" width='25' height='25' src="bus.png" alt="Bus" /><span>{line}</span></div>
+    }
+
+    if (mode === "train" && line[0] === 'U') {
+        return <div className="modeCol"><img className="ubahn-icon" width='25' height='25' src="ubahn.png" alt="U" /><span className="ubahn-badge" style={{backgroundColor: getUbahnColor(line)}}>{line}</span></div>
+    }
+
+    if (mode === "train" && line[0] === 'S') {
+        return <div className="modeCol"><img className="sbhan-icon" width='25' height='25' src="sbahn.png" /><span className="sbahn-badge"  style={{backgroundColor: getSbahnColor(line)}}>{line}</span></div>
+    }
+
+    if (mode === "train") {
+       return <div className="modeCol">🚂 &nbsp; <span className="train-badge">{line}</span></div>
+    }
+
+    return <div>{mode} {line}</div>
+}
+
+function getUbahnColor(line: string) {
+    switch(line) {
+      case "U1":
+      case "U3":
+        return "#457515"
+      break;
+      case "U2":
+        return "#f1572f"
+      break;
+      case "U4":
+        return "#f0d722"
+      break;
+      case "U6":
+        return "#a181c1"
+      break;
+      case "U5":
+        return "#d4a17a";
+      break;
+      case "U7":
+        return "#4c87b4"
+      break;
+      case "U8":
+        return "#004f91"
+      break;
+      case "U9":
+        return "#b64600"
+      break;
+    }
+}
+
+function getSbahnColor(line: string) {
+    switch (line) {
+    case "S3":
+      return "#2d7cb5"
+    break;
+    case "S8":
+    case "S85":
+      return "#7bbb65"
+    break;
+
+    case "S7":
+    case "S75":
+      return "#8564a4"
+    break;
+
+    case "S9":
+      return "#8c0b29"
+    break;
+
+    case "S25":
+    case "S26":
+      return "#1d6f26"
+    break;
+
+    case "S45":
+    case "S46":
+    case "S47":
+      return "#cda06b"
+    break;
+    }
+
+    return "#001337"
+
+}
+
+
 const localStorageInputLatLong = "inputLatLong"
 
 export default class DisplayBoard extends React.Component<DisplayBoardProps> {
@@ -190,9 +276,8 @@ export default class DisplayBoard extends React.Component<DisplayBoardProps> {
             </label>
             <table>
                 <thead><tr>
-                    <th>Mode</th>
-                    <th>Stop</th>
                     <th>Line</th>
+                    <th>Stop</th>
                     <th>Direction</th>
                     <th>Time (min)</th>
                 </tr></thead>
@@ -205,9 +290,8 @@ export default class DisplayBoard extends React.Component<DisplayBoardProps> {
                     })
                     .map(d => 
                         <tr>
-                            <td>{d.mode}</td>
+                            <td>{getLineDeco(d.mode, d.line)}</td>
                             <td>{d.stopName}</td>
-                            <td>{d.line}</td>
                             <td>{d.direction}</td>
                             <td className="departureTime">{this.getDepartureTimesAsString(d.departureTimes)}</td>
                         </tr>
