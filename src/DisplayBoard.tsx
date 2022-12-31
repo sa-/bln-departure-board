@@ -68,6 +68,24 @@ export default class DisplayBoard extends React.Component<DisplayBoardProps> {
     state.inputLatLong = e.target.value
     this.setState(state)
   }
+
+  onButtonCurrentLocationClick = () => {
+    let errorFunction = () => {alert("Couldn't get current location");}
+    let successFunction = (position: any) => {
+        let state = {...this.state}
+        state.inputLatLong = `${position.coords.latitude}, ${position.coords.longitude}`
+        this.setState(state)
+        this.handleLatLongSubmit()
+    }
+    if (navigator.geolocation)
+    {
+        navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+    }
+    else 
+    {
+        errorFunction()
+    }    
+  }
   
   handleLatLongSubmit = async () => {
     localStorage.setItem(localStorageInputLatLong, this.state.inputLatLong)
@@ -130,9 +148,11 @@ export default class DisplayBoard extends React.Component<DisplayBoardProps> {
     let now = new Date().getTime()
     return (
         <div>
+            
             <input id="inputLatLong" type="text" placeholder="Latitude, Longitude" value={this.state.inputLatLong} onChange={this.onInputLatLongChange}/>
             <input type="button" value="Go" onClick={this.handleLatLongSubmit} disabled={this.state.buttonGoDisabled} />
             <br/>
+            <input type="button" value="Get current location" onClick={this.onButtonCurrentLocationClick} />
             <label>
                 <input type="checkbox" checked={this.state.hideBuses} onChange={this.handleHideBus}/>
                 Hide buses
