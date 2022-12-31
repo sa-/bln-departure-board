@@ -23,3 +23,7 @@ tr:nth-child(even){
 tr:hover {
   background-color: #d1eaff;
 }
+
+.departureTime {
+  text-align: left;
+}

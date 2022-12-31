@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { groupBy } from './util';
 
 interface DisplayBoardProps extends React.HTMLProps<React.HTMLInputTypeAttribute> { }
 
@@ -7,7 +8,7 @@ type DisplayBoardState = {
     latitude: number | null
     longitude: number | null
     hideBuses: boolean
-    departures: Departure[]
+    departures: DepartureGroup[]
     inputLatLong: string
     buttonGoDisabled: boolean
 }
@@ -17,6 +18,14 @@ type Departure = {
     direction: string
     stopName: string
     departureTime: Date
+    mode: string
+}
+
+type DepartureGroup = {
+    line: string
+    direction: string
+    stopName: string
+    departureTimes: Date[]
     mode: string
 }
 
@@ -132,27 +141,49 @@ export default class DisplayBoard extends React.Component<DisplayBoardProps> {
                     departureTime: new Date(d.when),
                     mode: d.line.mode
                 };
-            }).sort(function (a: Departure, b: Departure) {
+            })
+
+        let tmpDepartureGroups = groupBy(departuresFormatted, (i: Departure) => `${i.stopName}, ${i.line}, ${i.direction}`)
+
+        let departureGroups: DepartureGroup[] = Object.entries(tmpDepartureGroups).map((group: any) => {
+            let departures: Departure[] = group[1]
+            return {
+                direction: departures[0].direction,
+                line: departures[0].line,
+                stopName: departures[0].stopName,
+                mode: departures[0].mode,
+                departureTimes: departures.map(d => d.departureTime).sort()
+            }
+        })
+            
+        let departuredSorted = departureGroups.sort(function (a: DepartureGroup, b: DepartureGroup) {
                 if (a.stopName < b.stopName) return -1;
                 if (a.stopName > b.stopName) return 1;
                 // if (a.line < b.line) return -1;
                 // if (a.line > b.line) return 1;
-                if (a.departureTime < b.departureTime) return -1;
-                if (a.departureTime > b.departureTime) return 1;
+                if (a.departureTimes[0] < b.departureTimes[0]) return -1;
+                if (a.departureTimes[0] > b.departureTimes[0]) return 1;
                 return 0;
             });
-        return departuresFormatted;
+        return departuredSorted;
     }
 
-  render() {
+  getDepartureTimesAsString = (times: Date[]) => {
     let now = new Date().getTime()
+    return times.map(t => {
+        return `${Math.floor((t.getTime() - now)/60000).toString()}`
+    }).join(", ")
+  }
+
+  render() {
+    
     return (
         <div>
             
             <input id="inputLatLong" type="text" placeholder="Latitude, Longitude" value={this.state.inputLatLong} onChange={this.onInputLatLongChange}/>
             <input type="button" value="Go" onClick={this.handleLatLongSubmit} disabled={this.state.buttonGoDisabled} />
             <br/>
-            <input type="button" value="Get current location" onClick={this.onButtonCurrentLocationClick} />
+            <input type="button" value="Use current location" onClick={this.onButtonCurrentLocationClick} />
             <label>
                 <input type="checkbox" checked={this.state.hideBuses} onChange={this.handleHideBus}/>
                 Hide buses
@@ -163,7 +194,7 @@ export default class DisplayBoard extends React.Component<DisplayBoardProps> {
                     <th>Stop</th>
                     <th>Line</th>
                     <th>Direction</th>
-                    <th>Time</th>
+                    <th>Time (min)</th>
                 </tr></thead>
                 <tbody>
                 {
@@ -178,7 +209,7 @@ export default class DisplayBoard extends React.Component<DisplayBoardProps> {
                             <td>{d.stopName}</td>
                             <td>{d.line}</td>
                             <td>{d.direction}</td>
-                            <td>{Math.floor((d.departureTime.getTime() - now)/60000).toString()} min</td>
+                            <td className="departureTime">{this.getDepartureTimesAsString(d.departureTimes)}</td>
                         </tr>
                     )
                 }
