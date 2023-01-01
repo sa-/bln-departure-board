@@ -28,8 +28,8 @@ import svgU9 from './assets/u9.svg'
 import svgU55 from './assets/u55.svg'
 import svgBus from './assets/bus.svg'
 import svgTram from './assets/tram.svg'
+import { tramLines } from './model'
 
-const tramLines = ["M1", "M2", "M4", "M5", "M6", "M8", "M10", "M13", "M17", "12", "16", "18", "21", "27", "37", "50", "60", "61", "62", "63", "67", "68"]
 
 export default function renderLine(mode: string, line: string) {
     if (line === "S1") {
