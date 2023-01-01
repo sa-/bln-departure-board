@@ -27,3 +27,19 @@ tr:hover {
 .departureTime {
   text-align: left;
 }
+
+.ubahn-badge, .sbahn-badge, .train-badge {
+    padding: 3px 7px;
+    border-radius: 6px;
+}
+
+.train-badge {
+    border-radius: 0;
+    background: #e40916;
+}
+
+.bus-icon, .ubahn-icon, .sbahn-icon {
+    margin: 5px;
+}
+
+.modeCol { display: flex; align-items: center; justify-content: center }
