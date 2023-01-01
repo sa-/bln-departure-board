@@ -33,91 +33,91 @@ const tramLines = ["M1", "M2", "M4", "M5", "M6", "M8", "M10", "M13", "M17", "12"
 
 export default function renderLine(mode: string, line: string) {
     if (line === "S1") {
-        return <img className="lineSvg" src={svgS1} />
+        return <img className="lineSvg" src={svgS1} alt="S1"/>
     }
     if (line === "S2") {
-        return <img className="lineSvg" src={svgS2} />
+        return <img className="lineSvg" src={svgS2} alt={line} />
     }
     if (line === "S3") {
-        return <img className="lineSvg" src={svgS3} />
+        return <img className="lineSvg" src={svgS3} alt={line} />
     }
     if (line === "S5") {
-        return <img className="lineSvg" src={svgS5} />
+        return <img className="lineSvg" src={svgS5} alt={line} />
     }
     if (line === "S7") {
-        return <img className="lineSvg" src={svgS7} />
+        return <img className="lineSvg" src={svgS7} alt={line} />
     }
     if (line === "S8") {
-        return <img className="lineSvg" src={svgS8} />
+        return <img className="lineSvg" src={svgS8} alt={line} />
     }
     if (line === "S9") {
-        return <img className="lineSvg" src={svgS9} />
+        return <img className="lineSvg" src={svgS9} alt={line} />
     }
     if (line === "S25") {
-        return <img className="lineSvg" src={svgS25} />
+        return <img className="lineSvg" src={svgS25} alt={line} />
     }
     if (line === "S26") {
-        return <img className="lineSvg" src={svgS26} />
+        return <img className="lineSvg" src={svgS26} alt={line} />
     }
     if (line === "S41") {
-        return <span><img className="lineSvg" src={svgS41} />↻</span>
+        return <span><img className="lineSvg" src={svgS41} alt={line} />↻</span>
     }
     if (line === "S42") {
-        return <span><img className="lineSvg" src={svgS42} />↺</span>
+        return <span><img className="lineSvg" src={svgS42} alt={line} />↺</span>
     }
     if (line === "S45") {
-        return <img className="lineSvg" src={svgS45} />
+        return <img className="lineSvg" src={svgS45} alt={line} />
     }
     if (line === "S46") {
-        return <img className="lineSvg" src={svgS46} />
+        return <img className="lineSvg" src={svgS46} alt={line} />
     }
     if (line === "S47") {
-        return <img className="lineSvg" src={svgS47} />
+        return <img className="lineSvg" src={svgS47} alt={line} />
     }
     if (line === "S75") {
-        return <img className="lineSvg" src={svgS75} />
+        return <img className="lineSvg" src={svgS75} alt={line} />
     }
     if (line === "S85") {
-        return <img className="lineSvg" src={svgS85} />
+        return <img className="lineSvg" src={svgS85} alt={line} />
     }
     if (line === "U12") {
-        return <img className="lineSvg" src={svgU12} />
+        return <img className="lineSvg" src={svgU12} alt={line} />
       }
       if (line === "U1") {
-        return <img className="lineSvg" src={svgU1} />
+        return <img className="lineSvg" src={svgU1} alt={line} />
       }
       if (line === "U2") {
-        return <img className="lineSvg" src={svgU2} />
+        return <img className="lineSvg" src={svgU2} alt={line} />
       }
       if (line === "U3") {
-        return <img className="lineSvg" src={svgU3} />
+        return <img className="lineSvg" src={svgU3} alt={line} />
       }
       if (line === "U7") {
-        return <img className="lineSvg" src={svgU7} />
+        return <img className="lineSvg" src={svgU7} alt={line} />
       }
       if (line === "U6") {
-        return <img className="lineSvg" src={svgU6} />
+        return <img className="lineSvg" src={svgU6} alt={line} />
       }
       if (line === "U4") {
-        return <img className="lineSvg" src={svgU4} />
+        return <img className="lineSvg" src={svgU4} alt={line} />
       }
       if (line === "U5") {
-        return <img className="lineSvg" src={svgU5} />
+        return <img className="lineSvg" src={svgU5} alt={line} />
       }
       if (line === "U8") {
-        return <img className="lineSvg" src={svgU8} />
+        return <img className="lineSvg" src={svgU8} alt={line} />
       }
       if (line === "U9") {
-        return <img className="lineSvg" src={svgU9} />
+        return <img className="lineSvg" src={svgU9} alt={line} />
       }
       if (line === "U55") {
-        return <img className="lineSvg" src={svgU55} />
+        return <img className="lineSvg" src={svgU55} alt={line} />
       }
     if(tramLines.includes(line)) {
-        return <span><img className="lineSvg" src={svgTram} /> <span className="lineDisplayText">{line}</span></span>
+        return <span><img className="lineSvg" src={svgTram} alt="Tram"/> <span className="lineDisplayText">{line}</span></span>
     }
     if (mode === "bus") {
-        return <div className="modeCol"><img className="lineSvg" src={svgBus} /> <span className="lineDisplayText">{line}</span></div>
+        return <div className="modeCol"><img className="lineSvg" src={svgBus} alt="Bus"/> <span className="lineDisplayText">{line}</span></div>
     }
     if (mode === "train") {
        return <div className="modeCol">🚂 &nbsp; <span className="train-badge">{line}</span></div>
