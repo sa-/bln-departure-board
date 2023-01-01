@@ -1,5 +1,7 @@
 .App {
   text-align: left;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-weight: 400;
 }
 
 table {
@@ -15,8 +17,6 @@ th {
   color: rgb(0, 0, 0);
 }
 
-
-
 tr:nth-child(even){
   background-color: #e7e6e6;
   color: rgb(0, 0, 0);
@@ -26,8 +26,20 @@ tr:hover {
   background-color: #d1eaff;
 }
 
+tbody {
+  font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
+  font-weight: 400;
+}
+
 .departureTime {
   text-align: left;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+}
+
+.lineDisplayText {
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-weight: 400;
 }
 
 .lineSvg {
@@ -46,9 +58,5 @@ tr:hover {
     background: #e40916;
 }
 
-.lineDisplayText {
-  margin-left: 2px;
-  font-weight: 500;
-}
 
 .modeCol { display: flex; align-items: center; justify-content: center }
