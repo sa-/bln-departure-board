@@ -18,6 +18,7 @@ const localStorageInputLatLong = "inputLatLong"
 
 export default class DisplayBoard extends React.Component<DisplayBoardProps> {
   state: DisplayBoardState;
+  interval: NodeJS.Timer | any;
   
   constructor(props: DisplayBoardProps) {
       super(props);
@@ -31,6 +32,8 @@ export default class DisplayBoard extends React.Component<DisplayBoardProps> {
         longitude = +parsed[1]
         inputLatLong = previousInputLatLong
       }
+
+      this.interval = null
 
       this.state = {
           latitude: latitude,
@@ -94,6 +97,10 @@ export default class DisplayBoard extends React.Component<DisplayBoardProps> {
     let state = {...this.state}
     state.departures = departuresFormatted
     this.setState(state)
+    this.interval = setInterval(() => this.setState({ time: Date.now() }), 5_000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   getDepartureTimesAsString = (times: Date[]) => {
