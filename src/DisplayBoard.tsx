@@ -43,7 +43,6 @@ export default class DisplayBoard extends React.Component<DisplayBoardProps> {
           inputLatLong: inputLatLong,
           buttonGoDisabled: false
       };
-
   }
 
   handleHideBus = (e: any) => {
@@ -61,10 +60,8 @@ export default class DisplayBoard extends React.Component<DisplayBoardProps> {
   onButtonCurrentLocationClick = () => {
     let errorFunction = () => {alert("Couldn't get current location");}
     let successFunction = (position: any) => {
-        let state = {...this.state}
-        state.inputLatLong = `${position.coords.latitude}, ${position.coords.longitude}`
-        this.setState(state)
-        this.handleLatLongSubmit()
+        let inputLatLong = `${position.coords.latitude}, ${position.coords.longitude}`
+        this.handleLatLongSubmit(null, inputLatLong)
     }
     if (navigator.geolocation)
     {
@@ -76,12 +73,12 @@ export default class DisplayBoard extends React.Component<DisplayBoardProps> {
     }    
   }
   
-  handleLatLongSubmit = async () => {
+  handleLatLongSubmit = async (e: any, inputLatLong?: string) => {
     let state = {...this.state}
+    state.inputLatLong = inputLatLong ?? state.inputLatLong
     state.buttonGoDisabled = true
-    state.departures = []
     this.setState(state)
-    let parsed = this.state.inputLatLong.split(",").map(s => s.trim())
+    let parsed = state.inputLatLong.split(",").map(s => s.trim())
     state.latitude = +parsed[0]
     state.longitude = +parsed[1]
     getDepartures(state.latitude, state.longitude).then(deps => {
@@ -93,10 +90,7 @@ export default class DisplayBoard extends React.Component<DisplayBoardProps> {
   }
 
   async componentDidMount() {
-    let departuresFormatted = await getDepartures(this.state.latitude, this.state.longitude);
-    let state = {...this.state}
-    state.departures = departuresFormatted
-    this.setState(state)
+    this.onButtonCurrentLocationClick()
     this.interval = setInterval(() => this.setState({ time: Date.now() }), 5_000);
   }
   componentWillUnmount() {
